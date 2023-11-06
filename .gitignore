@@ -161,5 +161,5 @@ cython_debug/
 node_modules/
 
 __pycache__/
-notebooks/
+.pytest_cache/
 env/
