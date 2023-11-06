@@ -1,6 +1,10 @@
 from datetime import datetime
+from geopy.geocoders import Nominatim
+import pandas as pd
+import numpy as np
+geolocator = Nominatim(user_agent="epra")
 
-
+"""Clean the dates and unify them"""
 def clean_dates(date):
 
     try:
@@ -36,18 +40,18 @@ def clean_dates(date):
     except:
         print(f'Could not sanitize the date: {cleaned_date}')
 
-
+"""Helper function to santize dates in the dataframe"""
 def sanitize_date(df, column):
     return df[column].apply(lambda s: clean_dates(s))
 
-
+"""Remove whitespace from the column names"""
 def remove_column_whitespace(df):
     df.rename(columns={"Period": "Price_Period",
               "TOWN": "Town", "Super Petrol": "Super"}, inplace=True)
     df.rename(columns=lambda x: x.replace(' ', '_'), inplace=True)
     return df
 
-
+"""Rename towns with spelling errors"""
 def rename_towns(df):
     '''Refactor this to be dynamic'''
     df = df.replace('Likoni Mainland', 'Likoni')
@@ -57,7 +61,7 @@ def rename_towns(df):
     df = df.replace('Keumbu', 'Kiambu')
     return df
 
-
+"""Gets the latitude and longitude for towns from OpenMaps API"""
 def get_lat_long(town):
 
     try:
@@ -68,13 +72,13 @@ def get_lat_long(town):
         print(f'No lat long: {town} ')
         return pd.Series({'lat': np.nan, 'lon': np.nan})
 
-
+"""Helper function to set coordinates in the dataframe"""
 def get_town_coordinates(df, column):
     df = df.merge(df[column].apply(lambda s: get_lat_long(s)),
                   left_index=True, right_index=True)
     return df
 
-
+"""Parse difftenrt forms of date"""
 def try_parsing_date(text):
 
     for fmt in ('%d %B %Y', '%B %d %Y', '%B %Y'):
@@ -85,6 +89,6 @@ def try_parsing_date(text):
             else:
                 return datetime.strptime(text, fmt).strftime('%d-%b-%Y')
         except ValueError as e:
-            print(f'value error: {e}')
+            # print(f'value error: {e}')
             pass
     raise ValueError('no valid date format found')
