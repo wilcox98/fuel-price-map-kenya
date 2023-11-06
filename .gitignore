@@ -163,3 +163,6 @@ node_modules/
 __pycache__/
 .pytest_cache/
 env/
+raw/
+backend/notebooks/clen_data.ipynb
+backend/notebooks/get_data.ipynb
