@@ -21,15 +21,12 @@ export const TopTen = ({ towns }) => {
     console.log("clicked", selectedRows);
   };
   useEffect(() => {
-    console.log("state", selectedRows);
+    // console.log("state", selectedRows);
   }, [selectedRows]);
-  const handleChange = useCallback(
-    (state) => {
-      setSelectedRows(state.selectedRows);
-      console.log(selectedRows);
-    },
-    [selectedRows]
-  );
+  const handleChange = useCallback((state) => {
+    setSelectedRows(state.selectedRows);
+    // console.log(selectedRows);
+  }, []);
 
   const columns = [
     {
