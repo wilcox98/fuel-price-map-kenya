@@ -1,6 +1,7 @@
-import { useCallback, useEffect, useState } from 'react';
-import DataTable from 'react-data-table-component';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useEffect, useState } from "react";
+import DataTable from "react-data-table-component";
+import { useNavigate } from "react-router-dom";
+import React from "react";
 export const TopTen = ({ towns }) => {
   //   state = { toggledClearRows: false };
   // Toggle the state so React Table Table changes to `clearSelectedRows` are triggered
@@ -11,49 +12,49 @@ export const TopTen = ({ towns }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const navigate = useNavigate();
   const onRowClicked = (row, event) => {
-    console.log(event, row);
-    var li = '/town/' + row.Town;
+    // console.log(event, row);
+    var li = "/town/" + row.Town;
     navigate(li);
     // console.log('/town/' + row.Town);
   };
-  const handleButtonClick = row => {
-    console.log('clicked', selectedRows);
+  const handleButtonClick = (row) => {
+    console.log("clicked", selectedRows);
   };
   useEffect(() => {
-    console.log('state', selectedRows);
+    console.log("state", selectedRows);
   }, [selectedRows]);
   const handleChange = useCallback(
-    state => {
+    (state) => {
       setSelectedRows(state.selectedRows);
       console.log(selectedRows);
     },
-    [selectedRows],
+    [selectedRows]
   );
 
   const columns = [
     {
-      name: 'Town',
-      selector: row => row.Town,
+      name: "Town",
+      selector: (row) => row.Town,
     },
     {
-      name: 'Kerosene',
-      selector: row => row.Kerosene,
+      name: "Kerosene",
+      selector: (row) => row.Kerosene,
       sortable: true,
     },
     {
-      name: 'Petrol',
-      selector: row => row.Super,
+      name: "Petrol",
+      selector: (row) => row.Super,
       sortable: true,
     },
     {
-      name: 'Diesel',
-      selector: row => row.Diesel,
+      name: "Diesel",
+      selector: (row) => row.Diesel,
       sortable: true,
     },
     {
-      cell: row => (
+      cell: (row) => (
         <div data-tag="allowRowEvents">
-          <div aria-hidden="true" onClick={e => handleButtonClick(row)}>
+          <div aria-hidden="true" onClick={(e) => handleButtonClick(row)}>
             {row.name}
           </div>
         </div>
@@ -73,7 +74,7 @@ export const TopTen = ({ towns }) => {
         columns={columns}
         data={towns}
         fixedHeader={true}
-        fixedHeaderScrollHeight={'450px'}
+        fixedHeaderScrollHeight={"450px"}
         selectableRows
         pagination
         onSelectedRowsChange={handleChange}

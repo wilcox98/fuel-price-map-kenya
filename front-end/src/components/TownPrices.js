@@ -1,5 +1,5 @@
-import DataTable from 'react-data-table-component';
-
+import DataTable from "react-data-table-component";
+import React from "react";
 export const TownPrices = ({ prices }) => {
   //   state = { toggledClearRows: false };
   // Toggle the state so React Table Table changes to `clearSelectedRows` are triggered
@@ -31,22 +31,22 @@ export const TownPrices = ({ prices }) => {
 
   const columns = [
     {
-      name: 'Period',
-      selector: row => row.Price_Period,
+      name: "Period",
+      selector: (row) => row.Price_Period,
     },
     {
-      name: 'Kerosene',
-      selector: row => row.Kerosene,
+      name: "Kerosene",
+      selector: (row) => row.Kerosene,
       sortable: true,
     },
     {
-      name: 'Petrol',
-      selector: row => row.Super,
+      name: "Petrol",
+      selector: (row) => row.Super,
       sortable: true,
     },
     {
-      name: 'Diesel',
-      selector: row => row.Diesel,
+      name: "Diesel",
+      selector: (row) => row.Diesel,
       sortable: true,
     },
   ];
@@ -59,7 +59,7 @@ export const TownPrices = ({ prices }) => {
         columns={columns}
         data={prices}
         fixedHeader={true}
-        fixedHeaderScrollHeight={'450px'}
+        fixedHeaderScrollHeight={"450px"}
         selectableRows
         pagination
         // onSelectedRowsChange={handleChange}

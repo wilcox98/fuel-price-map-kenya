@@ -1,10 +1,10 @@
-import './App.css';
-
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import { Town } from './pages/Town';
-import NotFound from './pages/NotFound';
-import Layout from './pages/Layout';
+import "./App.css";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import { Town } from "./pages/Town";
+import NotFound from "./pages/NotFound";
+import Layout from "./pages/Layout";
 
 function App() {
   return (
