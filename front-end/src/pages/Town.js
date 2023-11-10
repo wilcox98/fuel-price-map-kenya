@@ -1,44 +1,44 @@
-import { Container } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import { MapView } from '../components/Map';
+import { Container } from "react-bootstrap";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { MapView } from "../components/Map";
 
-import { useNavigate } from 'react-router-dom';
-import { TownPrices } from '../components/TownPrices';
-import { PricesBarChart } from '../components/PricesPlot';
+// import { useNavigate } from "react-router-dom";
+import { TownPrices } from "../components/TownPrices";
+import { PricesBarChart } from "../components/PricesPlot";
 export const Town = () => {
   const { town } = useParams();
   const [location, setLocation] = useState();
   const [prices, setPrices] = useState([]);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
   const [isLoading, setloading] = useState(true);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   let map;
   let title;
   useEffect(() => {
     axios
       .get(`http://127.0.0.1:5000/town/${town}`)
-      .then(res => {
+      .then((res) => {
         setLocation(res.data);
         // setloading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
       })
-      .finally(e => {
+      .finally((e) => {
         // setloading(false)
       });
     axios
       .get(`http://127.0.0.1:5000/prices/${town}`)
-      .then(res => {
+      .then((res) => {
         setPrices(res.data);
         setloading(false);
       })
-      .catch(err => {
+      .catch((err) => {
         setError(err.message);
       })
-      .finally(e => {
+      .finally((e) => {
         // setloading(false)
       });
   }, [town]);
@@ -50,7 +50,13 @@ export const Town = () => {
         </h1>
       </div>
     );
-    map = <MapView center={[location.lat, location.lon]} towns={[location]} zoom={8}></MapView>;
+    map = (
+      <MapView
+        center={[location.lat, location.lon]}
+        towns={[location]}
+        zoom={8}
+      ></MapView>
+    );
   } else {
     map = (
       <div className="spinner-border" role="status">
@@ -70,13 +76,6 @@ export const Town = () => {
   }
   return (
     <>
-      <div className="container text-left">
-        <p>
-          <button className="btn btn-danger " onClick={() => navigate('/')}>
-            Back
-          </button>
-        </p>
-      </div>
       {title}
       <Container>
         {error && <p className="text-danger">{error}</p>}
